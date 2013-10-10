@@ -19,7 +19,7 @@ For example:
 	  print reporter
   
 Outputs:
-
+<pre>
 	            Filename          |                              SHA256                              
 	  ----------------------------|------------------------------------------------------------------
 	  TotalEclipseOfTheHeart.txt  |14e872388fcfc8c7bec73fbfbf8d35999d09a925d02b3c51c78dae38e4e6781b  
@@ -27,3 +27,4 @@ Outputs:
 	  AllInOneVoice.txt           |346136668cb2fc843d4313daeaeba49732e0ccdd8c3ee46694f7227c05ee9d0d  
 	  TheWorldStartsTonight.txt   |e3b3b130e6d290bd8fc77346b310cb965c14b14a74e06bc5a94be63dc2652658  
 	  DiamondCut.txt              |8967d7e2accf4e6752ae9b8c4ab58ce22aec26287f3225b91e63cba7bcf37d85
+</pre>
