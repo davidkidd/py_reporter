@@ -29,7 +29,7 @@ Outputs:
 	  DiamondCut.txt              |8967d7e2accf4e6752ae9b8c4ab58ce22aec26287f3225b91e63cba7bcf37d85
 </pre>
 
-This is primarily designed to format console output, but you can also get a basic CSV or HTML version. Note that both versions will output strings, not CSV or HTML objects. If you want the output in something other than a string, you can just parse the output into whatever you need (eg, lxml etree).
+This is primarily designed to format console output, but you can also get a basic CSV or HTML version. Note that both methods will output strings, not CSV or HTML objects. If you want the output in something other than a string, you can just parse the output into whatever you need (eg, lxml etree).
 
 For example:
 
