@@ -1,3 +1,6 @@
+import io
+import csv
+
 class Reporter:
 
 	def __init__(self, name="", rows=[]):
@@ -17,6 +20,7 @@ class Reporter:
 		self.default_col_padding_symbol = '|'
 		self.default_header_line_symbol = '-'
 		self.default_col_padding = 1
+		self.default_fill_empty_symbol = ''
 		self.add_header_separator = True
 
 		self.justification_options = ["<", ">", "^"]
@@ -72,11 +76,52 @@ class Reporter:
 		for cell in self.justifications.keys():
 			self.justifications[cell] = self.default_cell_justification
 
-	def adjust_row(self, row):
+	def adjust_row(self, row, use_fill_char=True):
 		col_diff = self.max_columns - len(row)
 		if col_diff > 0:
 			for i in range(col_diff):
-				row.append('')
+				if (use_fill_char):
+					row.append(self.default_fill_empty_symbol) 
+				else:
+					row.append('')
+
+
+	def get_html_table(self, title=True, border=1):
+		table_html = '<table border="' + str(border) + '">'
+		if title and len(self.name) > 0:
+			table_html += "<caption>" + self.name + "</caption>"
+		if self.header_row:
+			table_html += "<thead><tr>"
+			for header in self.header_row:
+				table_html += "<th>" + header + "</th>"
+			table_html += "</tr></thead>"
+
+		table_html += "<tbody>"
+		for r in self.rows:
+			table_html += "<tr>"
+			for cell in r:
+				table_html += "<td>" + cell + "</td>"
+			table_html += "</tr>"
+		table_html += "</tbody>"
+		table_html += "</table>"
+		
+		return table_html
+
+	def get_csv(self, title=True, fill_empty=True):
+		output = io.BytesIO()
+		writer = csv.writer(output)
+
+		if title:
+			if fill_empty:
+				self.adjust_row(self.header_row)
+			writer.writerow(self.header_row)
+
+		for row in self.rows:
+			if fill_empty:
+				self.adjust_row(row)
+			writer.writerow(row)
+
+		return output.getvalue()
 
 	def __str__(self):
 		output = []
@@ -84,7 +129,7 @@ class Reporter:
 		self.adjust_row(self.header_row)
 
 		sep_row = []
-		self.adjust_row(sep_row)
+		self.adjust_row(sep_row, False)
 
 		for r in self.rows:
 			self.adjust_row(r)
@@ -119,8 +164,6 @@ class Reporter:
 			output.append(sep_fmt.format(*sep_row))
 
 		# Output data
-		for r in self.rows:
-			self.adjust_row(r)
 
 		fmt = self.default_col_padding_symbol.join(
 			['{%d:%s%s%d}' % (	i, 
