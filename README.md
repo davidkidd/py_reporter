@@ -45,7 +45,9 @@ AllInOneVoice.txt,346136668cb2fc843d4313daeaeba49732e0ccdd8c3ee46694f7227c05ee9d
 </pre>
 
 Or:
+
 	  # Optionally add a title
+	  
 	  reporter.name = "HTML hash output"
 		
 	  print reporter.get_html_output()
